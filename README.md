@@ -15,39 +15,40 @@ Muhammad Naffa Afif - A11.2022.14249
 ### **Pembuatan Struktur direktori dan filenya
 - struktur direktorinya sebagai berikut:
 - inventory-backend/
+```
 │── src/
-│   ├── modules/              # 🔹 Modul utama aplikasi (Kategori, Supplier, dll.)
-│   │   ├── admins/            # 🔹 Modul untuk Items
+│   ├── modules/              # Modul utama aplikasi (Kategori, Supplier, dll.)
+│   │   ├── admins/            # Modul untuk Items
 │   │   │   ├── admins.module.ts
 │   │   │   ├── admins.service.ts
 │   │   │   ├── admins.controller.ts
 │   │   │   ├── admins.entity.ts
-│   │   ├── items/            # 🔹 Modul untuk Items
+│   │   ├── items/            # Modul untuk Items
 │   │   │   ├── suppliers.module.ts
 │   │   │   ├── suppliers.service.ts
 │   │   │   ├── suppliers.controller.ts
 │   │   │   ├── suppliers.entity.ts
-│   │   ├── items/            # 🔹 Modul untuk Items
+│   │   ├── items/            # Modul untuk Items
 │   │   │   ├── items.module.ts
 │   │   │   ├── items.service.ts
 │   │   │   ├── items.controller.ts
 │   │   │   ├── items.entity.ts
-│   │   ├── categories/       # 🔹 Modul untuk Categories
+│   │   ├── categories/       # Modul untuk Categories
 │   │   │   ├── categories.module.ts
 │   │   │   ├── categories.service.ts
 │   │   │   ├── categories.controller.ts
 │   │   │   ├── categories.entity.ts
-│   ├── app.module.ts         # 🔹 Modul utama (root module)
-│   ├── main.ts               # 🔹 Entry point aplikasi
-│   ├── database/             # 🔹 Konfigurasi database dan migrasi
+│   ├── app.module.ts         # Modul utama (root module)
+│   ├── main.ts               # Entry point aplikasi
+│   ├── database/             # Konfigurasi database dan migrasi
 │   │   ├── typeorm.config.ts # Data Source
 │   │   ├── migrations/ # nantinya ada hasil generasi dan nanti akan kita konfigurasi
-│── package.json               # 🔹 File konfigurasi npm
-
+│── package.json               #File konfigurasi npm
+```
 #### **Pembuatan Entity**
 - Membuat entitas database yang sesuai dengan skema:
   - **Admins**: Menyimpan data pengguna administrator.
-    ```
+    ```typescript
     import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
     @Entity()
     export class Admins {
@@ -72,7 +73,7 @@ Muhammad Naffa Afif - A11.2022.14249
     ```
   - **Categories**: Kategori barang yang dibuat oleh admin.
   - INFO + Warning : jika menggunakan relasi supaya kolom yang nanti terbentuk sama dengan yang ada dimigrasi , perlu decorator joincolumn dan dikasih nama , jika tidak nanti akan berubah karena library typeorm , misal created_by akan menjadi ceratedById , otomatis pascalcase+Id , kalo ngga dari awal begitu nanti repot ketika diakhir dan saya mengalaminya saat coba query wkwkwk
-    ```
+    ```typescript
     import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
     import { Admins } from '../admins/admins.entity';
     
@@ -101,7 +102,7 @@ Muhammad Naffa Afif - A11.2022.14249
 
     ```
   - **Suppliers**: Informasi supplier barang.
-    ```
+    ```typescript
     import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
     import { Admins } from '../admins/admins.entity';
     
@@ -130,7 +131,7 @@ Muhammad Naffa Afif - A11.2022.14249
 
     ```
   - **Items**: Barang yang akan dijual, dengan relasi ke kategori, supplier, dan admin.
-    ```
+    ```typescript
     import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn, JoinColumn } from 'typeorm';
     import { Categories } from '../categories/categories.entity';
     import { Suppliers } from '../suppliers/suppliers.entity';
@@ -1020,7 +1021,7 @@ export class InitDatabase1745721407621 implements MigrationInterface {
   NOTE : volume terakhir sebenarnya untuk menyimpan seeder dan akan dieksekusi di saat run backend tapi belum bisa - gagal :'v
 
 Dockerfile disimpan di dalam folder backend
-  ```
+  ```Dockerfile
   FROM node:22.2.0
   
   WORKDIR /usr/src/app
